@@ -1,5 +1,13 @@
 target/
-.idea/
-*.iml
 *.class
+*.jar
+*.war
 .DS_Store
+
+# Downloaded portable runtimes (not for version control)
+jdk*/
+apache-maven*/
+*.zip
+checkstyle_output.txt
+ci_result.txt
+screenshot.png

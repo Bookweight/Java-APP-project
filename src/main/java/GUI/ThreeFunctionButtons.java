@@ -1,68 +1,61 @@
 package GUI;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.security.auth.login.AppConfigurationEntry;
-import javax.swing.Action;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.SwingConstants;
-
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.PublicKey;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
 
-import GUI.SubFacesSetting;
+public class ThreeFunctionButtons {
+  private JPanel panel;
+  private final CustomButton returnMainButton;
+  private final CustomButton saveButton;
+  private final CustomButton clearButton;
+  private JFrame Frame;
 
-public class ThreeFunctionButtons {// 畫面下方的三個功能按鈕
-    private JFrame targetFrame;
-    private JPanel mainPanel;
-    private JButton setWeightButton;
-    private JButton mainGUIButton;
-    private JButton progressButton;
+  public ThreeFunctionButtons(JFrame Frame) {
+    this.Frame = Frame;
+    ActionListener Listener = new ButtonListener();
 
-    public ThreeFunctionButtons(JFrame appFrame) {
-        targetFrame = appFrame;
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(1, 3));
+    // Horizontal layout spreading across evenly
+    panel =
+        new JPanel(
+            new MigLayout("insets 10, fillx", "[grow, fill]10[grow, fill]10[grow, fill]", "[40!]"));
+    panel.setOpaque(false); // Let parent background show
 
-        ActionListener btnlistener = new ButtonListener();
+    returnMainButton = new CustomButton("回主畫面");
+    saveButton = new CustomButton("儲存");
+    clearButton = new CustomButton("清除");
 
-        setWeightButton = new JButton("設定權重");
-        setWeightButton.setFont(new Font("", Font.BOLD, 16));
-        setWeightButton.addActionListener(btnlistener);
-        mainPanel.add(setWeightButton);
-        mainGUIButton = new JButton("主畫面");
-        mainGUIButton.setFont(new Font("", Font.BOLD, 16));
-        mainGUIButton.addActionListener(btnlistener);
-        mainPanel.add(mainGUIButton);
-        progressButton = new JButton("進度");
-        progressButton.setFont(new Font("", Font.BOLD, 16));
-        progressButton.addActionListener(btnlistener);
-        mainPanel.add(progressButton);
+    // Neutral colors for utility buttons
+    returnMainButton.setColors(Theme.TEXT_MUTED, Theme.TEXT_MAIN);
+    saveButton.setColors(Theme.SPORT_COLOR, Theme.SPORT_COLOR.darker());
+    clearButton.setColors(Theme.ACADEMIC_COLOR, Theme.ACADEMIC_COLOR.darker());
+
+    returnMainButton.addActionListener(Listener);
+    saveButton.addActionListener(Listener);
+    clearButton.addActionListener(Listener);
+
+    panel.add(returnMainButton);
+    panel.add(saveButton);
+    panel.add(clearButton);
+  }
+
+  private class ButtonListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent a) {
+      if (a.getSource() == returnMainButton) {
+        new MainGUI();
+        Frame.dispose();
+      } else if (a.getSource() == saveButton) {
+        // save
+      } else if (a.getSource() == clearButton) {
+        // clear
+      }
     }
+  }
 
-    private class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent a) {
-            if (a.getSource() == setWeightButton) {// 跳到五大參數頁面
-                new FiveFacesSettingGUI();
-                targetFrame.dispose();
-            } else if (a.getSource() == mainGUIButton) {// 跳回主頁面
-                new MainGUI();
-                targetFrame.dispose();
-            } else if (a.getSource() == progressButton) {// 跳到進度頁面
-                new ScheduleGUI();
-                targetFrame.dispose();
-            }
-        }
-    }
-
-    public JPanel getPanel() {
-        return mainPanel;
-    }
+  public JPanel getPanel() {
+    return panel;
+  }
 }

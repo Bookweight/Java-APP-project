@@ -1,99 +1,79 @@
 package GUI;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.JButton;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.imageio.ImageIO;
-
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
 
-import GUI.StartSimulationGUI;
-import GUI.DynamicSizing;
+public class SimulationGUI {
+  private JFrame appFrame;
+  private JPanel mainPanel;
+  private JPanel functionPanel;
+  private final CustomButton startSimulationButton;
+  private final CustomButton resultButton;
+  private final CustomButton returnButton;
 
-public class SimulationGUI {// 模擬介面
-    private JFrame appFrame;
-    private JLayeredPane pane;
-    private JLabel backgroundLabel;
-    private ImageIcon backgroundIcon;
-    private JPanel functionPanel;
-    private final JButton startSimulationButton;
-    private final JButton resultButton;
-    private final JButton returnButton;
+  public SimulationGUI() {
+    double w = DynamicSizing.getYourWidth();
+    double h = DynamicSizing.getYourHight();
 
-    public SimulationGUI() {
-        double h = DynamicSizing.getYourHight();
-        double w = DynamicSizing.getYourWidth();
-        appFrame = new JFrame("Simulation");
-        appFrame.setLayout(null);
-        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        appFrame.setSize(640, 900);
-        appFrame.setVisible(true);
+    appFrame = new JFrame("Simulation Dashboard");
+    appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    appFrame.setSize((int) Math.round(640 * w), (int) Math.round(900 * h));
+    appFrame.setLocationRelativeTo(null);
 
-        ActionListener btnlistener = new ButtonListener();
+    ActionListener btnlistener = new ButtonListener();
 
-        pane = appFrame.getLayeredPane();
+    mainPanel = new JPanel(new MigLayout("insets 40, wrap 1, fillx, gapy 30", "[grow, fill]", ""));
+    mainPanel.setBackground(Theme.BG_MAIN);
 
-        loadIcons(w, h);
+    JLabel title = new JLabel("Simulation Dashboard");
+    title.setFont(Theme.FONT_TITLE);
+    title.setForeground(Theme.TEXT_MAIN);
+    mainPanel.add(title, "align center, wrap 50");
 
-        startSimulationButton = new JButton("開始模擬");
-        startSimulationButton.setFont(new Font("", Font.BOLD, 16));
-        startSimulationButton.setBounds((int) Math.round(160 * w), (int) Math.round(240 * h), (int) Math.round(270 * w),
-                (int) Math.round(90 * h));
-        startSimulationButton.addActionListener(btnlistener);
-        pane.add(startSimulationButton, 1);
-        resultButton = new JButton("模擬結果");// 模擬結果，需加入辦別是否已模擬
-        resultButton.setFont(new Font("", Font.BOLD, 16));
-        resultButton.setBounds((int) Math.round(160 * w), (int) Math.round(375 * h), (int) Math.round(270 * w),
-                (int) Math.round(90 * h));
-        resultButton.addActionListener(btnlistener);
-        pane.add(resultButton, 1);
-        returnButton = new JButton("返回");
-        returnButton.setFont(new Font("", Font.BOLD, 16));
-        returnButton.setBounds((int) Math.round(160 * w), (int) Math.round(510 * h), (int) Math.round(270 * w),
-                (int) Math.round(90 * h));
-        returnButton.addActionListener(btnlistener);
-        pane.add(returnButton, 1);
+    startSimulationButton = createMenuButton("開始模擬", btnlistener);
+    resultButton = createMenuButton("模擬結果", btnlistener);
+    returnButton = createMenuButton("返回", btnlistener);
 
-        functionPanel = new ThreeFunctionButtons(appFrame).getPanel();// 加入畫面下方三按鈕(獨立物件)
-        functionPanel.setBounds(0, (int) Math.round(810 * h), (int) Math.round(640 * w), (int) Math.round(60 * h));
-        pane.add(functionPanel, 1);
+    mainPanel.add(startSimulationButton, "h 80!");
+    mainPanel.add(resultButton, "h 80!");
+    mainPanel.add(returnButton, "h 80!");
 
-        backgroundLabel = new JLabel(backgroundIcon);
-        pane.add(backgroundLabel, -10);
-        backgroundLabel.setBounds(0, 0, (int) Math.round(640 * w), (int) Math.round(900 * h));
+    functionPanel = new ThreeFunctionButtons(appFrame).getPanel();
+    mainPanel.add(functionPanel, "growx, pushy, aligny bottom");
+
+    appFrame.setContentPane(mainPanel);
+    appFrame.setVisible(true);
+  }
+
+  private CustomButton createMenuButton(String text, ActionListener listener) {
+    CustomButton btn = new CustomButton(text);
+    btn.setFont(Theme.FONT_HEADER);
+    btn.setCornerRadius(20);
+    btn.addActionListener(listener);
+    return btn;
+  }
+
+  private class ButtonListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent a) {
+      if (a.getSource() == startSimulationButton) {
+        new StartSimulationGUI();
+        appFrame.dispose();
+      } else if (a.getSource() == resultButton) {
+        new SimulationResultGUI();
+        appFrame.dispose();
+      } else if (a.getSource() == returnButton) {
+        new MainGUI();
+        appFrame.dispose();
+      }
     }
+  }
 
-    private class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent a) {
-            if (a.getSource() == startSimulationButton) {
-                new StartSimulationGUI();// 開始模擬
-                appFrame.dispose();
-            } else if (a.getSource() == resultButton) {
-                new SimulationResultGUI();
-                appFrame.dispose();
-
-            } else if (a.getSource() == returnButton) {
-                new MainGUI();
-                appFrame.dispose();
-            }
-        }
-    }
-
-    private void loadIcons(double w, double h) {
-        backgroundIcon = ImageUtil.getScaledIcon("/GUI/Icons/background3.png", (int) Math.round(640 * w), (int) Math.round(900 * h));
-    }
-
-    public JFrame getFrame() {
-        return appFrame;
-    }
+  public JFrame getFrame() {
+    return appFrame;
+  }
 }
