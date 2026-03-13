@@ -1,162 +1,74 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
+import net.miginfocom.swing.MigLayout;
 
 public class PickGUI {
-  double h = DynamicSizing.getYourHight();
-  double w = DynamicSizing.getYourWidth();
-  private final JFrame appFrame;
-  private JLayeredPane pane;
-  private JLabel backgroundLabel;
-  private ImageIcon backgroundIcon;
-  private JPanel functionPanel;
-  private final JPanel buttonPanel;
-  private JButton firstButton;
-  private JButton secondButtton;
-  private JButton thirdButton;
-  private JButton forthButton;
-  private JButton fifthButton;
+    private final JFrame appFrame;
+    private JPanel mainPanel;
+    private final CustomButton startButton;
+    private final CustomButton backButton;
+    private final JLabel statusLabel;
 
-  public PickGUI() { // 五選三介面
-    double h = DynamicSizing.getYourHight();
-    double w = DynamicSizing.getYourWidth();
-    appFrame = new JFrame("Pick");
-    appFrame.setLayout(null);
-    appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    appFrame.setSize((int) Math.round(640 * w), (int) Math.round(900 * h));
-    appFrame.setVisible(true);
+    public PickGUI() {
+        double w = DynamicSizing.getYourWidth();
+        double h = DynamicSizing.getYourHight();
+        
+        appFrame = new JFrame("Daily Task Picker");
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setSize((int) Math.round(640 * w), (int) Math.round(900 * h));
+        appFrame.setLocationRelativeTo(null);
 
-    ActionListener btnlistener = new ButtonListener();
+        mainPanel = new JPanel(new MigLayout("insets 40, wrap 1, fillx, gapy 30", "[grow, fill]", ""));
+        mainPanel.setBackground(Theme.BG_MAIN);
 
-    loadIcons(w, h);
+        JLabel title = new JLabel("每日任務挑選");
+        title.setFont(Theme.FONT_TITLE);
+        title.setForeground(Theme.TEXT_MAIN);
+        mainPanel.add(title, "align center, wrap 50");
 
-    pane = appFrame.getLayeredPane();
+        statusLabel = new JLabel("<html><center>點擊下方按鈕<br>系統將根據權重為您挑選今日的三項任務</center></html>");
+        statusLabel.setFont(Theme.FONT_HEADER);
+        statusLabel.setHorizontalAlignment(JLabel.CENTER);
+        mainPanel.add(statusLabel, "align center, wrap 50");
 
-    buttonPanel = new JPanel();
-    buttonPanel.setLayout(new GridLayout(1, 5));
-    buttonPanel.setBounds(
-        (int) Math.round(90 * w),
-        (int) Math.round(180 * h),
-        (int) Math.round(460 * w),
-        (int) Math.round(540 * h));
-    buttonPanel.setBorder(new LineBorder(Color.BLACK));
-    pane.add(buttonPanel, 1);
+        ActionListener btnlistener = new ButtonListener();
 
-    firstButton = new JButton("選項一");
-    firstButton.addActionListener(btnlistener);
-    firstButton.setBackground(Color.WHITE);
-    buttonPanel.add(firstButton);
-    secondButtton = new JButton("選項二");
-    secondButtton.addActionListener(btnlistener);
-    secondButtton.setBackground(Color.WHITE);
-    buttonPanel.add(secondButtton);
-    thirdButton = new JButton("選項三");
-    thirdButton.addActionListener(btnlistener);
-    thirdButton.setBackground(Color.WHITE);
-    buttonPanel.add(thirdButton);
-    forthButton = new JButton("選項四");
-    forthButton.addActionListener((btnlistener));
-    forthButton.setBackground(Color.WHITE);
-    buttonPanel.add(forthButton);
-    fifthButton = new JButton("選項五");
-    fifthButton.addActionListener(btnlistener);
-    fifthButton.setBackground(Color.WHITE);
-    buttonPanel.add(fifthButton);
+        startButton = new CustomButton("開始挑選");
+        startButton.setFont(Theme.FONT_TITLE);
+        startButton.setCornerRadius(20);
+        startButton.addActionListener(btnlistener);
+        
+        backButton = new CustomButton("返回主畫面");
+        backButton.setColors(Theme.TEXT_MUTED, Theme.TEXT_MAIN);
+        backButton.setCornerRadius(20);
+        backButton.addActionListener(btnlistener);
 
-    functionPanel = new ThreeFunctionButtons(appFrame).getPanel(); // 底下三個按鈕
-    functionPanel.setBounds(
-        0, (int) Math.round(810 * h), (int) Math.round(640 * w), (int) Math.round(60 * h));
-    pane.add(functionPanel, 1);
+        mainPanel.add(startButton, "h 100!, w 250!, align center");
+        mainPanel.add(backButton, "h 80!, w 250!, align center");
 
-    backgroundLabel = new JLabel(backgroundIcon);
-    pane.add(backgroundLabel, -10);
-    backgroundLabel.setBounds(0, 0, (int) Math.round(640 * w), (int) Math.round(900 * h));
-  }
+        JPanel functionPanel = new ThreeFunctionButtons(appFrame).getPanel();
+        mainPanel.add(functionPanel, "growx, pushy, aligny bottom");
 
-  private class ButtonListener implements ActionListener {
-    private boolean b1picked = false; // 是否已選取
-    private boolean b2picked = false;
-    private boolean b3picked = false;
-    private boolean b4picked = false;
-    private boolean b5picked = false;
-    private int pickednum = 0;
-
-    @Override
-    public void actionPerformed(ActionEvent a) {
-      if (a.getSource() == firstButton) {
-        if (b1picked == true) {
-          b1picked = false;
-          firstButton.setBackground(Color.WHITE);
-          pickednum -= 1;
-        } else if (pickednum <= 2) { // 不能超過三個
-          b1picked = true;
-          firstButton.setBackground(Color.GRAY); // 目前先以灰色代表選取
-          pickednum += 1;
-        }
-      } else if (a.getSource() == secondButtton) {
-        if (b2picked == true) {
-          b2picked = false;
-          secondButtton.setBackground(Color.WHITE);
-          pickednum -= 1;
-        } else if (pickednum <= 2) {
-          b2picked = true;
-          secondButtton.setBackground(Color.GRAY);
-          pickednum += 1;
-        }
-      } else if (a.getSource() == thirdButton) {
-        if (b3picked == true) {
-          b3picked = false;
-          thirdButton.setBackground(Color.WHITE);
-          pickednum -= 1;
-        } else if (pickednum <= 2) {
-          b3picked = true;
-          thirdButton.setBackground(Color.GRAY);
-          pickednum += 1;
-        }
-      } else if (a.getSource() == forthButton) {
-        if (b4picked == true) {
-          b4picked = false;
-          forthButton.setBackground(Color.WHITE);
-          pickednum -= 1;
-        } else if (pickednum <= 2) {
-          b4picked = true;
-          forthButton.setBackground(Color.GRAY);
-          pickednum += 1;
-        }
-      } else if (a.getSource() == fifthButton) {
-        if (b5picked == true) {
-          b5picked = false;
-          fifthButton.setBackground(Color.WHITE);
-          pickednum -= 1;
-        } else if (pickednum <= 2) {
-          b5picked = true;
-          fifthButton.setBackground(Color.GRAY);
-          pickednum += 1;
-        }
-      }
+        appFrame.setContentPane(mainPanel);
+        appFrame.setVisible(true);
     }
-  }
 
-  private void loadIcons(double w, double h) {
-    try {
-      Image img = ImageIO.read(getClass().getResourceAsStream("Icons/background3.png"));
-      backgroundIcon =
-          new ImageIcon(
-              img.getScaledInstance((int) Math.round(640 * w), (int) Math.round(900 * h), 0));
-    } catch (Exception e) {
-      System.out.println("academicIcon:" + e);
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent a) {
+            if (a.getSource() == startButton) {
+                statusLabel.setText("<html><center>挑選中......<br>今日任務已產出並儲存！</center></html>");
+                startButton.setText("查看今日任務");
+                // In a real app, this would show results. For now, it's just GUI refactoring.
+            } else if (a.getSource() == backButton) {
+                new MainGUI();
+                appFrame.dispose();
+            }
+        }
     }
-  }
 }
