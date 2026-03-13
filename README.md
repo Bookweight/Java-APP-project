@@ -1,49 +1,105 @@
-# Java-APP-project
-Using Java to create a APP for daily work activities.
-This is a project to practice coding with Java
-The followingg is are the thoughts in the begining 
+# Java Daily Schedule Planner
 
-一.模擬類別:
-		1.參數:每日空閒小時數、事項、事項比重、五大項目比重
-		2.輸出:主程式介面(或另開新介面)的UI、圖表、資料庫(儲存用)
-		3.函式:每日五選三隨機選擇、所選結果儲存、遞迴執行選擇、結果統計
+[![Language](https://img.shields.io/badge/English-%E4%B8%AD%E6%96%87-white?labelColor=2ea44f&style=flat)](README.zh-TW.md)
+[![Java CI](https://github.com/Bookweight/Java-APP-project/actions/workflows/ci.yml/badge.svg)](https://github.com/Bookweight/Java-APP-project/actions/workflows/ci.yml)
+[![Java](https://img.shields.io/badge/Java-17-blue?logo=java)](https://openjdk.org/projects/jdk/17/)
+[![Maven](https://img.shields.io/badge/Build-Maven-C71A36?logo=apache-maven)](https://maven.apache.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-二.項目類別(學業類別、運動類別、興趣類別、朋友類別、愛情類別):
-		1.參數:比重、子項目陣列(資料型態是子項目類別)
-		2.輸出:子項目新增介面、子項目條目
-		3.函式:新增子類別、子類別儲存
+A Java Swing desktop application for managing and simulating your daily schedule across five life domains. Built with a modern, responsive UI powered by **FlatLaf** and **MigLayout**.
 
-三.子項目類別(EXC:學業->電腦網路、運動->慢跑….):
-		1.參數:比重、已做時數、成功條件時數、字串(存註解)
-		2.輸出:子項目類別
-		3.函式:子類別參數設定
+![App Screenshot](screenshots/app_display.png)
 
-四.已執行項目類別:
-		1.參數:執行時間、五大項目
-		2.輸出:各項子類別執行時間
-		3.函式:已執行項目儲存
+---
 
-五.未執行項目類別:
-		1.參數:五大項目
-		2.輸出:主程式介面
-		3.函式:執行率計算、讀取資料庫
+## Features
 
-六.主程式類別:
-		1.參數: 每日空閒小時數、事項、事項比重、五大項目比重、已執行項、
-		子項目類別陣列(index為日期，內容為做過的子項目)。		
-2.輸出:UI、讀寫資料庫、
-		3.函式:首次登入設定、每日登入挑選事件、模擬、修改參數、讀取項目、新增子類別、每日事件結果儲存、結果統計
+- **Five Life Domains**: Manage tasks across Academic, Hobby, Sport, Social, and Relationship categories.
+- **Custom Weighting**: Assign priorities (1–5) to each domain and sub-task.
+- **Schedule Progress View**: Track completion progress per category with live progress bars.
+- **Daily Simulation**: Randomly selects 3 daily tasks based on your configured weights; stores simulation results.
+- **Dynamic Scaling**: UI scales automatically to your screen resolution.
+- **Modern UI**: Flat design with rounded-corner custom buttons, hover animations, and a clean light theme (powered by [FlatLaf](https://www.formdev.com/flatlaf/)).
 
+---
 
+## Tech Stack
 
-使用者需要輸入以下:
-實驗總天數
-每天工作時間
-各項權重
-每個細項成功時數(加總不能超過實驗總時間)
-模擬方式: 使用者輸入每天工作時數(預設8個小時)
-該細項權重/該細項所屬面向的全部細項總權重*該面向權重/面向總權重*480
-每個細項分配到的時數/專精時數使用者是否滿意
+| Component | Technology |
+|-----------|-----------|
+| Language | Java 17 |
+| GUI Framework | Java Swing |
+| Look & Feel | FlatLaf 3.2.5 |
+| Layout Manager | MigLayout 11.3 |
+| Build Tool | Apache Maven |
+| Code Style | Google Java Format (Spotless) |
+| Naming Checks | Checkstyle (Google Checks) |
+| CI | GitHub Actions |
 
+---
 
-To launch this app, execute the MainGUI.java
+## Project Structure
+
+```
+src/
+├── main/
+│   ├── java/GUI/
+│   │   ├── MainGUI.java          # Application entry point & main window
+│   │   ├── ScheduleGUI.java      # Schedule progress view
+│   │   ├── FiveFacesSettingGUI.java  # Weight configuration per domain
+│   │   ├── SimulationGUI.java    # Simulation launcher & result viewer
+│   │   ├── Theme.java            # Centralized color palette & fonts
+│   │   ├── CustomButton.java     # Rounded button with hover animations
+│   │   ├── ImageUtil.java        # Centralized image loading utility
+│   │   ├── ThreeFunctionButtons.java  # Reusable bottom action bar
+│   │   └── DynamicSizing.java    # Screen-aware size scaling
+│   └── resources/GUI/Icons/      # All icon assets (PNG)
+.github/workflows/ci.yml          # GitHub Actions CI pipeline
+pom.xml                           # Maven build & plugin configuration
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Java 17+
+- Maven 3.6+ (or use the included `mvnw`/`mvnw.cmd` wrapper)
+
+### Run the Application
+
+```bash
+# Using Maven Wrapper (no Maven installation required)
+./mvnw exec:java -Dexec.mainClass="GUI.MainGUI"
+
+# Or with system Maven
+mvn exec:java -Dexec.mainClass="GUI.MainGUI"
+```
+
+### Code Quality Checks (Local)
+
+```bash
+# Auto-format code to Google Java Style
+mvn spotless:apply
+
+# Enforce naming convention checks
+mvn checkstyle:check
+```
+
+---
+
+## UI Architecture
+
+All GUI windows use **MigLayout** instead of hardcoded `setBounds()`, ensuring that the layout adapts cleanly to different screen sizes.
+
+Shared styling is centralized in two utility classes:
+- **`Theme.java`** — Defines the complete color palette (primary, category colors, text, backgrounds) and the shared `Font` objects.
+- **`CustomButton.java`** — A `JButton` subclass with rounded corners (configurable radius), transparent background, and smooth hover color transitions.
+
+---
+
+## CI / Pre-commit Hooks
+
+- **GitHub Actions** (`.github/workflows/ci.yml`): On every push or pull request, automatically runs `spotless:check`, `checkstyle:check`, and `mvn package`.
+- **Pre-commit hook** (`.git/hooks/pre-commit`): Runs `spotless:apply` + `checkstyle:check` locally before each commit (requires Java in `PATH`).
