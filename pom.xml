@@ -92,7 +92,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
-                    <mainClass>GUI.MainGUI</mainClass>
+                    <mainClass>gui.MainGUI</mainClass>
                 </configuration>
             </plugin>
         </plugins>

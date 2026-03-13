@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.AWTException;

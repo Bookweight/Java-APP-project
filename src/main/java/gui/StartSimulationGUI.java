@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -103,7 +103,7 @@ public class StartSimulationGUI {
 
   private void loadIcons(double w, double h) {
     int s = (int) Math.round(60 * w);
-    daysIcon = ImageUtil.getScaledIcon("/GUI/Icons/dailyImg.png", s, s);
-    hourIcon = ImageUtil.getScaledIcon("/GUI/Icons/hourImg.png", s, s);
+    daysIcon = ImageUtil.getScaledIcon("/gui/Icons/dailyImg.png", s, s);
+    hourIcon = ImageUtil.getScaledIcon("/gui/Icons/hourImg.png", s, s);
   }
 }

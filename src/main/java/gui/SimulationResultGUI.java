@@ -1,6 +1,5 @@
-package GUI;
+package gui;
 
-import GUI.FiveFacesSettingGUI.Faces;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -87,19 +86,19 @@ public class SimulationResultGUI {
     @Override
     public void actionPerformed(ActionEvent a) {
       if (a.getSource() == academicButton) {
-        new SimulationResultSubFacesGUI(Faces.academic);
+        new SimulationResultSubFacesGUI(FiveFacesSettingGUI.Faces.academic);
         appFrame.dispose();
       } else if (a.getSource() == hobbyButton) {
-        new SimulationResultSubFacesGUI(Faces.hobby);
+        new SimulationResultSubFacesGUI(FiveFacesSettingGUI.Faces.hobby);
         appFrame.dispose();
       } else if (a.getSource() == sportButton) {
-        new SimulationResultSubFacesGUI(Faces.sport);
+        new SimulationResultSubFacesGUI(FiveFacesSettingGUI.Faces.sport);
         appFrame.dispose();
       } else if (a.getSource() == socialButton) {
-        new SimulationResultSubFacesGUI(Faces.socail);
+        new SimulationResultSubFacesGUI(FiveFacesSettingGUI.Faces.socail);
         appFrame.dispose();
       } else if (a.getSource() == relationshipButton) {
-        new SimulationResultSubFacesGUI(Faces.relationship);
+        new SimulationResultSubFacesGUI(FiveFacesSettingGUI.Faces.relationship);
         appFrame.dispose();
       }
     }

@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import GUI.FiveFacesSettingGUI.Faces;
+import gui.FiveFacesSettingGUI.Faces;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
-public class MainGUI { // 主畫面
+public class MainGUI {
   private JFrame appFrame;
   private JPanel mainPanel;
   private final CustomButton fiveFacesSettingButton;
@@ -105,33 +105,33 @@ public class MainGUI { // 主畫面
     }
   }
 
-  private void loadIcons(double w, double h) { // 讀圖示
+  private void loadIcons(double w, double h) {
     fiveFaceSettingIcon =
         ImageUtil.getScaledIcon(
-            "/GUI/Icons/fiveFacesSettingButtonImg.png",
+            "/gui/Icons/fiveFacesSettingButtonImg.png",
             (int) Math.round(75 * w),
             (int) Math.round(75 * h));
     simulationButtIcon =
         ImageUtil.getScaledIcon(
-            "/GUI/Icons/simulationButtonImg.png",
+            "/gui/Icons/simulationButtonImg.png",
             (int) Math.round(75 * w),
             (int) Math.round(75 * h));
     scheduleButtonIcon =
         ImageUtil.getScaledIcon(
-            "/GUI/Icons/schedulebButtonImg.png",
+            "/gui/Icons/schedulebButtonImg.png",
             (int) Math.round(75 * w),
             (int) Math.round(75 * h));
     implementButtonIcon =
         ImageUtil.getScaledIcon(
-            "/GUI/Icons/implementButtonImg.png",
+            "/gui/Icons/implementButtonImg.png",
             (int) Math.round(75 * w),
             (int) Math.round(75 * h));
     pickButtonIcon =
         ImageUtil.getScaledIcon(
-            "/GUI/Icons/pickButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+            "/gui/Icons/pickButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
     settingButtonIcon =
         ImageUtil.getScaledIcon(
-            "/GUI/Icons/settingbButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+            "/gui/Icons/settingbButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
   }
 
   public JFrame getFrame() {

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class ImageUtil {
    * Loads an image from the classpath, scales it to the specified width and height, and returns an
    * ImageIcon.
    *
-   * @param path The path to the image resource (e.g., "Icons/background2.png")
+   * @param path The path to the image resource (e.g., "/gui/Icons/background2.png")
    * @param width The target width
    * @param height The target height
    * @return ImageIcon, or null if the image could not be loaded
