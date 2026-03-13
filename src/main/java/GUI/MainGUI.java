@@ -40,17 +40,17 @@ public class MainGUI {// 主畫面
     private JLabel backgroundLabel;
     private final JButton fiveFacesSettingButton;
     private final JButton simulationButton;
-    private final JButton schedulebButton;
+    private final JButton scheduleButton;
     private final JButton implementButton;
     private final JButton pickButton;
-    private final JButton settingbButton;
+    private final JButton settingButton;
     private ImageIcon backgroundIcon;
     private ImageIcon fiveFaceSettingIcon;
     private ImageIcon simulationButtIcon;
-    private ImageIcon schedulebButtonIcon;
+    private ImageIcon scheduleButtonIcon;
     private ImageIcon implementButtonIcon;
     private ImageIcon pickButtonIcon;
-    private ImageIcon settingbButtonIcon;
+    private ImageIcon settingButtonIcon;
 
     public MainGUI() {
         double h = DynamicSizing.getYourHight();
@@ -68,10 +68,10 @@ public class MainGUI {// 主畫面
 
         fiveFacesSettingButton = new JButton("Five faces setting", fiveFaceSettingIcon);
         simulationButton = new JButton("Simultion", simulationButtIcon);
-        schedulebButton = new JButton("Schedule", schedulebButtonIcon);
+        scheduleButton = new JButton("Schedule", scheduleButtonIcon);
         implementButton = new JButton("Implement", implementButtonIcon);
         pickButton = new JButton("Pick", pickButtonIcon);
-        settingbButton = new JButton("Setting", settingbButtonIcon);
+        settingButton = new JButton("Setting", settingButtonIcon);
 
         fiveFacesSettingButton.setBorder(null);
         fiveFacesSettingButton.setFont(new Font("", Font.BOLD, 16));
@@ -91,13 +91,13 @@ public class MainGUI {// 主畫面
         simulationButton.setBounds((int) Math.round(240 * w), (int) Math.round(450 * h), (int) Math.round(150 * w),
                 (int) Math.round(150 * h));
 
-        schedulebButton.setBorder(null);
-        schedulebButton.setFont(new Font("", Font.BOLD, 16));
-        schedulebButton.setHorizontalTextPosition(JLabel.CENTER);
-        schedulebButton.setVerticalTextPosition(JLabel.BOTTOM);
-        schedulebButton.addActionListener(features);
-        pane.add(schedulebButton, 1);
-        schedulebButton.setBounds((int) Math.round(420 * w), (int) Math.round(450 * h), (int) Math.round(150 * w),
+        scheduleButton.setBorder(null);
+        scheduleButton.setFont(new Font("", Font.BOLD, 16));
+        scheduleButton.setHorizontalTextPosition(JLabel.CENTER);
+        scheduleButton.setVerticalTextPosition(JLabel.BOTTOM);
+        scheduleButton.addActionListener(features);
+        pane.add(scheduleButton, 1);
+        scheduleButton.setBounds((int) Math.round(420 * w), (int) Math.round(450 * h), (int) Math.round(150 * w),
                 (int) Math.round(150 * h));
 
         implementButton.setBorder(null);
@@ -118,13 +118,13 @@ public class MainGUI {// 主畫面
         pickButton.setBounds((int) Math.round(240 * w), (int) Math.round(630 * h), (int) Math.round(150 * w),
                 (int) Math.round(150 * h));
 
-        settingbButton.setBorder(null);
-        settingbButton.setFont(new Font("", Font.BOLD, 16));
-        settingbButton.setHorizontalTextPosition(JLabel.CENTER);
-        settingbButton.setVerticalTextPosition(JLabel.BOTTOM);
-        settingbButton.addActionListener(features);
-        pane.add(settingbButton, 1);
-        settingbButton.setBounds((int) Math.round(420 * w), (int) Math.round(630 * h), (int) Math.round(150 * w),
+        settingButton.setBorder(null);
+        settingButton.setFont(new Font("", Font.BOLD, 16));
+        settingButton.setHorizontalTextPosition(JLabel.CENTER);
+        settingButton.setVerticalTextPosition(JLabel.BOTTOM);
+        settingButton.addActionListener(features);
+        pane.add(settingButton, 1);
+        settingButton.setBounds((int) Math.round(420 * w), (int) Math.round(630 * h), (int) Math.round(150 * w),
                 (int) Math.round(150 * h));
 
         backgroundLabel = new JLabel(backgroundIcon);
@@ -141,7 +141,7 @@ public class MainGUI {// 主畫面
             } else if (a.getSource() == simulationButton) {
                 new SimulationGUI();
                 appFrame.dispose();
-            } else if (a.getSource() == schedulebButton) {
+            } else if (a.getSource() == scheduleButton) {
                 new ScheduleGUI();
                 appFrame.dispose();
             } else if (a.getSource() == implementButton) {
@@ -150,61 +150,19 @@ public class MainGUI {// 主畫面
             } else if (a.getSource() == pickButton) {
                 new PickGUI();
                 appFrame.dispose();
-            } else if (a.getSource() == settingbButton) {
+            } else if (a.getSource() == settingButton) {
             }
         }
     }
 
     private void loadIcons(double w, double h) {// 讀圖示
-        try {
-            Image img = ImageIO.read(getClass().getResourceAsStream("Icons/backGround.png"));
-            backgroundIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(640 * w), (int) Math.round(900 * h), 0));
-        } catch (Exception e) {
-            System.out.println("fiveFaceSettingIcon:" + e);
-        }
-        try {
-            Image img = ImageIO.read(getClass().getResource("Icons/fiveFacesSettingButtonImg.png"));
-            fiveFaceSettingIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(75 * w), (int) Math.round(75 * h), 0));// 按鈕的圖示
-        } catch (Exception e) {
-            System.out.println("fiveFaceSettingIcon:" + e);
-        }
-        try {
-            Image img = ImageIO.read(getClass().getResource("Icons/simulationButtonImg.png"));
-            simulationButtIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(75 * w), (int) Math.round(75 * h), 0));
-        } catch (Exception e) {
-            System.out.println("simulationButtIcon:" + e);
-        }
-        try {
-            Image img = ImageIO.read(getClass().getResource("Icons/schedulebButtonImg.png"));
-            schedulebButtonIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(75 * w), (int) Math.round(75 * h), 0));
-        } catch (Exception e) {
-            System.out.println("schedulebButtonIcon:" + e);
-        }
-        try {
-            Image img = ImageIO.read(getClass().getResource("Icons/implementButtonImg.png"));
-            implementButtonIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(75 * w), (int) Math.round(75 * h), 0));
-        } catch (Exception e) {
-            System.out.println("implementButtonIcon:" + e);
-        }
-        try {
-            Image img = ImageIO.read(getClass().getResource("Icons/pickButtonImg.png"));
-            pickButtonIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(75 * w), (int) Math.round(75 * h), 0));
-        } catch (Exception e) {
-            System.out.println("pickButtonIcon:" + e);
-        }
-        try {
-            Image img = ImageIO.read(getClass().getResource("Icons/settingbButtonImg.png"));
-            settingbButtonIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(75 * w), (int) Math.round(75 * h), 0));
-        } catch (Exception e) {
-            System.out.println("settingbButtonIcon:" + e);
-        }
+        backgroundIcon = ImageUtil.getScaledIcon("/GUI/Icons/backGround.png", (int) Math.round(640 * w), (int) Math.round(900 * h));
+        fiveFaceSettingIcon = ImageUtil.getScaledIcon("/GUI/Icons/fiveFacesSettingButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+        simulationButtIcon = ImageUtil.getScaledIcon("/GUI/Icons/simulationButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+        scheduleButtonIcon = ImageUtil.getScaledIcon("/GUI/Icons/schedulebButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+        implementButtonIcon = ImageUtil.getScaledIcon("/GUI/Icons/implementButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+        pickButtonIcon = ImageUtil.getScaledIcon("/GUI/Icons/pickButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
+        settingButtonIcon = ImageUtil.getScaledIcon("/GUI/Icons/settingbButtonImg.png", (int) Math.round(75 * w), (int) Math.round(75 * h));
     }
 
     public JFrame getFrame() {

@@ -53,7 +53,7 @@ public class ScheduleGUI {
         private final JButton academicButton;
         private final JButton hobbyButton;
         private final JButton sportButton;
-        private final JButton socailButton;
+        private final JButton socialButton;
         private final JButton relationshipButton;
 
         public ScheduleGUI() {
@@ -184,12 +184,12 @@ public class ScheduleGUI {
                 pane.add(sportButton, 1);
                 sportButton.setBounds((int) Math.round(420 * w), (int) Math.round(435 * h), (int) Math.round(150 * w),
                                 (int) Math.round(60 * h));
-                socailButton = new JButton();
-                socailButton.setFont(new Font("", Font.BOLD, 16));
-                socailButton.setText("細項觀看");
-                socailButton.addActionListener(btnlistener);
-                pane.add(socailButton, 1);
-                socailButton.setBounds((int) Math.round(420 * w), (int) Math.round(555 * h), (int) Math.round(150 * w),
+                socialButton = new JButton();
+                socialButton.setFont(new Font("", Font.BOLD, 16));
+                socialButton.setText("細項觀看");
+                socialButton.addActionListener(btnlistener);
+                pane.add(socialButton, 1);
+                socialButton.setBounds((int) Math.round(420 * w), (int) Math.round(555 * h), (int) Math.round(150 * w),
                                 (int) Math.round(60 * h));
                 relationshipButton = new JButton();
                 relationshipButton.setText("細項觀看");
@@ -223,7 +223,7 @@ public class ScheduleGUI {
                         } else if (a.getSource() == sportButton) {
                                 new SubFacesSchedule(Faces.sport);
                                 appFrame.dispose();
-                        } else if (a.getSource() == socailButton) {
+                        } else if (a.getSource() == socialButton) {
                                 new SubFacesSchedule(Faces.socail);
                                 appFrame.dispose();
                         } else if (a.getSource() == relationshipButton) {
@@ -234,49 +234,12 @@ public class ScheduleGUI {
         }
 
         private void loadIcons(double w, double h) {
-                try {
-                        Image img = ImageIO.read(getClass().getResourceAsStream("Icons/background2.png"));
-                        backgroundIcon = new ImageIcon(
-                                        img.getScaledInstance((int) Math.round(640 * w), (int) Math.round(900 * h), 0));
-                } catch (Exception e) {
-                        System.out.println("academicIcon:" + e);
-                }
-                try {
-                        Image img = ImageIO.read(getClass().getResourceAsStream("Icons/academicImg.png"));
-                        academicIcon = new ImageIcon(
-                                        img.getScaledInstance((int) Math.round(60 * w), (int) Math.round(60 * h), 0));
-                } catch (Exception e) {
-                        System.out.println("academicIcon:" + e);
-                }
-                try {
-                        Image img = ImageIO.read(getClass().getResourceAsStream("Icons/hobbyImg.png"));
-                        hobbyIcon = new ImageIcon(
-                                        img.getScaledInstance((int) Math.round(60 * w), (int) Math.round(60 * h), 0));
-                } catch (Exception e) {
-                        System.out.println("hobbyIcon:" + e);
-                }
-                try {
-                        Image img = ImageIO.read(getClass().getResourceAsStream("Icons/sportsImg.png"));
-                        sportIcon = new ImageIcon(
-                                        img.getScaledInstance((int) Math.round(60 * w), (int) Math.round(60 * h), 0));
-                } catch (Exception e) {
-                        System.out.println("sportIcon:" + e);
-                }
-                try {
-                        Image img = ImageIO.read(getClass().getResourceAsStream("Icons/socialImg.png"));
-                        socialIcon = new ImageIcon(
-                                        img.getScaledInstance((int) Math.round(60 * w), (int) Math.round(60 * h), 0));
-                } catch (Exception e) {
-                        System.out.println("socialIcon:" + e);
-                }
-                try {
-                        Image img = ImageIO.read(getClass().getResourceAsStream("Icons/relationshipImg.png"));
-                        relationshipIcon = new ImageIcon(
-                                        img.getScaledInstance((int) Math.round(60 * w), (int) Math.round(60 * h), 0));
-                } catch (Exception e) {
-                        System.out.println("fiveFaceSettingIcon:" + e);
-                }
-
+                backgroundIcon = ImageUtil.getScaledIcon("/GUI/Icons/background2.png", (int) Math.round(640 * w), (int) Math.round(900 * h));
+                academicIcon = ImageUtil.getScaledIcon("/GUI/Icons/academicImg.png", (int) Math.round(60 * w), (int) Math.round(60 * h));
+                hobbyIcon = ImageUtil.getScaledIcon("/GUI/Icons/hobbyImg.png", (int) Math.round(60 * w), (int) Math.round(60 * h));
+                sportIcon = ImageUtil.getScaledIcon("/GUI/Icons/sportsImg.png", (int) Math.round(60 * w), (int) Math.round(60 * h));
+                socialIcon = ImageUtil.getScaledIcon("/GUI/Icons/socialImg.png", (int) Math.round(60 * w), (int) Math.round(60 * h));
+                relationshipIcon = ImageUtil.getScaledIcon("/GUI/Icons/relationshipImg.png", (int) Math.round(60 * w), (int) Math.round(60 * h));
         }
 
         public JFrame getFrame() {

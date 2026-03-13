@@ -90,13 +90,7 @@ public class SimulationGUI {// 模擬介面
     }
 
     private void loadIcons(double w, double h) {
-        try {
-            Image img = ImageIO.read(getClass().getResourceAsStream("Icons/background3.png"));
-            backgroundIcon = new ImageIcon(
-                    img.getScaledInstance((int) Math.round(640 * w), (int) Math.round(900 * h), 0));
-        } catch (Exception e) {
-            System.out.println("academicIcon:" + e);
-        }
+        backgroundIcon = ImageUtil.getScaledIcon("/GUI/Icons/background3.png", (int) Math.round(640 * w), (int) Math.round(900 * h));
     }
 
     public JFrame getFrame() {
