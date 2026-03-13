@@ -69,6 +69,7 @@
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>${spotless.version}</version>
                 <configuration>
+                    <lineEndings>UNIX</lineEndings>
                     <java>
                         <googleJavaFormat>
                             <version>1.19.2</version>
