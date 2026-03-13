@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.FiveFacesSettingGUI.Faces;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -8,98 +9,99 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import net.miginfocom.swing.MigLayout;
-import GUI.FiveFacesSettingGUI.Faces;
 
 public class SimulationResultGUI {
-    private final JFrame appFrame;
-    private JPanel mainPanel;
-    private final CustomButton academicButton;
-    private final CustomButton hobbyButton;
-    private final CustomButton sportButton;
-    private final CustomButton socialButton;
-    private final CustomButton relationshipButton;
+  private final JFrame appFrame;
+  private JPanel mainPanel;
+  private final CustomButton academicButton;
+  private final CustomButton hobbyButton;
+  private final CustomButton sportButton;
+  private final CustomButton socialButton;
+  private final CustomButton relationshipButton;
 
-    public SimulationResultGUI() {
-        double w = DynamicSizing.getYourWidth();
-        double h = DynamicSizing.getYourHight();
-        
-        appFrame = new JFrame("Simulation Results");
-        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        appFrame.setSize((int) Math.round(640 * w), (int) Math.round(900 * h));
-        appFrame.setLocationRelativeTo(null);
+  public SimulationResultGUI() {
+    double w = DynamicSizing.getYourWidth();
+    double h = DynamicSizing.getYourHight();
 
-        ActionListener btnlistener = new ButtonListener();
+    appFrame = new JFrame("Simulation Results");
+    appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    appFrame.setSize((int) Math.round(640 * w), (int) Math.round(900 * h));
+    appFrame.setLocationRelativeTo(null);
 
-        mainPanel = new JPanel(new MigLayout("insets 40, wrap 3, fillx, gapy 20", "[80!][grow, fill][120!]", ""));
-        mainPanel.setBackground(Theme.BG_MAIN);
+    ActionListener btnlistener = new ButtonListener();
 
-        JLabel title = new JLabel("模擬結果總覽");
-        title.setFont(Theme.FONT_TITLE);
-        title.setForeground(Theme.TEXT_MAIN);
-        mainPanel.add(title, "span 3, align center, wrap 40");
+    mainPanel =
+        new JPanel(
+            new MigLayout("insets 40, wrap 3, fillx, gapy 20", "[80!][grow, fill][120!]", ""));
+    mainPanel.setBackground(Theme.BG_MAIN);
 
-        academicButton = createDetailButton(btnlistener);
-        hobbyButton = createDetailButton(btnlistener);
-        sportButton = createDetailButton(btnlistener);
-        socialButton = createDetailButton(btnlistener);
-        relationshipButton = createDetailButton(btnlistener);
+    JLabel title = new JLabel("模擬結果總覽");
+    title.setFont(Theme.FONT_TITLE);
+    title.setForeground(Theme.TEXT_MAIN);
+    mainPanel.add(title, "span 3, align center, wrap 40");
 
-        addCategoryRow("學業", 75, Theme.ACADEMIC_COLOR, academicButton);
-        addCategoryRow("興趣", 40, Theme.HOBBY_COLOR, hobbyButton);
-        addCategoryRow("運動", 60, Theme.SPORT_COLOR, sportButton);
-        addCategoryRow("社交", 20, Theme.SOCIAL_COLOR, socialButton);
-        addCategoryRow("感情", 90, Theme.RELATIONSHIP_COLOR, relationshipButton);
+    academicButton = createDetailButton(btnlistener);
+    hobbyButton = createDetailButton(btnlistener);
+    sportButton = createDetailButton(btnlistener);
+    socialButton = createDetailButton(btnlistener);
+    relationshipButton = createDetailButton(btnlistener);
 
-        JPanel functionPanel = new ThreeFunctionButtons(appFrame).getPanel();
-        mainPanel.add(functionPanel, "span 3, growx, pushy, aligny bottom");
+    addCategoryRow("學業", 75, Theme.ACADEMIC_COLOR, academicButton);
+    addCategoryRow("興趣", 40, Theme.HOBBY_COLOR, hobbyButton);
+    addCategoryRow("運動", 60, Theme.SPORT_COLOR, sportButton);
+    addCategoryRow("社交", 20, Theme.SOCIAL_COLOR, socialButton);
+    addCategoryRow("感情", 90, Theme.RELATIONSHIP_COLOR, relationshipButton);
 
-        appFrame.setContentPane(mainPanel);
-        appFrame.setVisible(true);
+    JPanel functionPanel = new ThreeFunctionButtons(appFrame).getPanel();
+    mainPanel.add(functionPanel, "span 3, growx, pushy, aligny bottom");
+
+    appFrame.setContentPane(mainPanel);
+    appFrame.setVisible(true);
+  }
+
+  private CustomButton createDetailButton(ActionListener listener) {
+    CustomButton btn = new CustomButton("結果細項");
+    btn.setFont(Theme.FONT_REGULAR);
+    btn.setCornerRadius(15);
+    btn.setColors(Theme.TEXT_MUTED, Theme.TEXT_MAIN);
+    btn.addActionListener(listener);
+    return btn;
+  }
+
+  private void addCategoryRow(String name, int progress, java.awt.Color color, CustomButton btn) {
+    JLabel label = new JLabel(name, SwingConstants.CENTER);
+    label.setFont(Theme.FONT_BUTTON);
+    label.setForeground(Theme.TEXT_MAIN);
+
+    JProgressBar pb = new JProgressBar(0, 100);
+    pb.setValue(progress);
+    pb.setStringPainted(true);
+    pb.setForeground(color);
+
+    mainPanel.add(label, "align center");
+    mainPanel.add(pb, "growx, h 30!");
+    mainPanel.add(btn, "h 40!");
+  }
+
+  private class ButtonListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent a) {
+      if (a.getSource() == academicButton) {
+        new SimulationResultSubFacesGUI(Faces.academic);
+        appFrame.dispose();
+      } else if (a.getSource() == hobbyButton) {
+        new SimulationResultSubFacesGUI(Faces.hobby);
+        appFrame.dispose();
+      } else if (a.getSource() == sportButton) {
+        new SimulationResultSubFacesGUI(Faces.sport);
+        appFrame.dispose();
+      } else if (a.getSource() == socialButton) {
+        new SimulationResultSubFacesGUI(Faces.socail);
+        appFrame.dispose();
+      } else if (a.getSource() == relationshipButton) {
+        new SimulationResultSubFacesGUI(Faces.relationship);
+        appFrame.dispose();
+      }
     }
-
-    private CustomButton createDetailButton(ActionListener listener) {
-        CustomButton btn = new CustomButton("結果細項");
-        btn.setFont(Theme.FONT_REGULAR);
-        btn.setCornerRadius(15);
-        btn.setColors(Theme.TEXT_MUTED, Theme.TEXT_MAIN);
-        btn.addActionListener(listener);
-        return btn;
-    }
-
-    private void addCategoryRow(String name, int progress, java.awt.Color color, CustomButton btn) {
-        JLabel label = new JLabel(name, SwingConstants.CENTER);
-        label.setFont(Theme.FONT_BUTTON);
-        label.setForeground(Theme.TEXT_MAIN);
-        
-        JProgressBar pb = new JProgressBar(0, 100);
-        pb.setValue(progress);
-        pb.setStringPainted(true);
-        pb.setForeground(color);
-        
-        mainPanel.add(label, "align center");
-        mainPanel.add(pb, "growx, h 30!");
-        mainPanel.add(btn, "h 40!");
-    }
-
-    private class ButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent a) {
-            if (a.getSource() == academicButton) {
-                new SimulationResultSubFacesGUI(Faces.academic);
-                appFrame.dispose();
-            } else if (a.getSource() == hobbyButton) {
-                new SimulationResultSubFacesGUI(Faces.hobby);
-                appFrame.dispose();
-            } else if (a.getSource() == sportButton) {
-                new SimulationResultSubFacesGUI(Faces.sport);
-                appFrame.dispose();
-            } else if (a.getSource() == socialButton) {
-                new SimulationResultSubFacesGUI(Faces.socail);
-                appFrame.dispose();
-            } else if (a.getSource() == relationshipButton) {
-                new SimulationResultSubFacesGUI(Faces.relationship);
-                appFrame.dispose();
-            }
-        }
-    }
+  }
 }

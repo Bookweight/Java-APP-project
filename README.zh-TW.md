@@ -6,7 +6,9 @@
 [![Maven](https://img.shields.io/badge/Build-Maven-C71A36?logo=apache-maven)](https://maven.apache.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-一個以 Java Swing 打造的桌面應用程式，用於管理並模擬五大生活面向的每日行程。UI 採用 **FlatLaf** 現代化主題與 **MigLayout** 自適應排版，提供乾淨、扁平化的使用者體驗。
+一個以 Java Swing 打造的桌面應用程式，用於管理並模擬五大生活面向的每日行程。 UI 採用 **FlatLaf** 現代化主題與 **MigLayout** 自適應排版，提供乾淨、扁平化的使用者體驗。
+
+![應用程式截圖](screenshots/app_display.png)
 
 ---
 

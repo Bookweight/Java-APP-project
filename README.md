@@ -8,6 +8,8 @@
 
 A Java Swing desktop application for managing and simulating your daily schedule across five life domains. Built with a modern, responsive UI powered by **FlatLaf** and **MigLayout**.
 
+![App Screenshot](screenshots/app_display.png)
+
 ---
 
 ## Features
